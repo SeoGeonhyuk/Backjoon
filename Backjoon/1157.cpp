@@ -1,4 +1,4 @@
-ï»¿//ë°±ì¤€ 1157ë²ˆ ë¬¸ì œ
+//¹éÁØ 1157¹ø ¹®Á¦
 #include <iostream>
 #include <vector>
 #include <algorithm>
