@@ -1,4 +1,4 @@
-ï»¿//ë°±ì¤€ 2869ë²ˆ
+//¹éÁØ 2869¹ø ¹®Á¦
 #include <iostream>
 #include <cmath>
 int main() {
