@@ -1,4 +1,4 @@
-ï»¿//ë°±ì¤€ 2941ë²ˆ ë¬¸ì œ
+//¹éÁØ 2941¹ø ¹®Á¦
 #include <iostream>
 #include <string>
 #include <algorithm>
