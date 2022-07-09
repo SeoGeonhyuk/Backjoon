@@ -1,4 +1,4 @@
-ï»¿//ë°±ì¤€ 1712ë²ˆ ë¬¸ì œ
+//¹éÁØ 1712¹ø ¹®Á¦
 #include <iostream>
 #include <cmath>
 int main() {
@@ -8,7 +8,7 @@ int main() {
 	if (profit <= 0)
 		std::cout << -1;
 	else
-		if(std::ceil(a/profit)*profit > a)
+		if (std::ceil(a / profit) * profit > a)
 			std::cout << (int)std::ceil(a / profit);
 		else
 			std::cout << (int)std::ceil(a / profit) + 1;
