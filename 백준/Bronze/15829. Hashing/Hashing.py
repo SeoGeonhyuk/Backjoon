@@ -8,4 +8,4 @@ start = 0
 for i in str:
   hashVal += (ord(i) - 96) * s[start]
   start += 1
-print(hashVal)
+print(hashVal % 1234567891)
