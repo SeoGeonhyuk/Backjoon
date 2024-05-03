@@ -4,6 +4,7 @@ class SaveIndex{
         this.index = index;
     }
 }
+//장르 별 해시테이블을 만들기 위한 클래스
 class SaveListen{
     constructor(genre) {
         this.genre = genre;
@@ -35,9 +36,18 @@ class SaveListen{
 }
 function solution(genres, plays) {
     var answer = [];
+    //장르 별 해시 테이블을 만들기 위한 saveGenres
     let saveGenres = {};
+    //장르 별 들은 횟수를 위한 배열
+    //sumList['classic'] = 300 ok
     let sumList = [];
+    //장르 별 해시 테이블을 좀 더 쉽게 가져오기 위한 valListIndex
+    //valListIndex['classic'] = '3000'여기서 3000은 장르별 총 노래 듣기 횟수를 나타낸다.
     let valListIndex = [];
+    //장르 별 특정 노래의 들은 횟수를 쉽게 가져오기 위한 valListSum
+    //valListSum[3000] = 'classic'
+    //이것을 응용해서
+    //saveGenres에서 firstMax와 secondMax를 통해 각 장르별 인기 노래 1위 2위를 구한다.
     let valListSum = [];
     for(let i = 0; i < genres.length; i++){
         if(saveGenres[genres[i]] === undefined){
