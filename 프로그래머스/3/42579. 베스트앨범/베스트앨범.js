@@ -37,8 +37,8 @@ function solution(genres, plays) {
     var answer = [];
     let saveGenres = {};
     let sumList = [];
-    let valList = [];
-    let valList2 = [];
+    let valListIndex = [];
+    let valListSum = [];
     for(let i = 0; i < genres.length; i++){
         if(saveGenres[genres[i]] === undefined){
             saveGenres[genres[i]] = new SaveListen(genres[i]);
@@ -48,15 +48,14 @@ function solution(genres, plays) {
         sumList[genres[i]] = saveGenres[genres[i]].sum;
     }
     for (let key in saveGenres){
-        valList2.push(saveGenres[key].sum)
-        valList[saveGenres[key].sum] = key;
+        valListSum.push(saveGenres[key].sum)
+        valListIndex[saveGenres[key].sum] = key;
     }
-    valList2.sort((a, b) => b - a);
-    for(let i = 0; i < valList2.length; i++){
-        answer.push(saveGenres[valList[valList2[i]]].firstMax.index)
-        if(saveGenres[valList[valList2[i]]].secondMax.index >= 0)
-            answer.push(saveGenres[valList[valList2[i]]].secondMax.index)
+    valListSum.sort((a, b) => b - a);
+    for(let i = 0; i < valListSum.length; i++){
+        answer.push(saveGenres[valListIndex[valListSum[i]]].firstMax.index)
+        if(saveGenres[valListIndex[valListSum[i]]].secondMax.index >= 0)
+            answer.push(saveGenres[valListIndex[valListSum[i]]].secondMax.index)
     }
-    console.log(answer);
     return answer;
 }
