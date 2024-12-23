@@ -13,7 +13,6 @@ function solution(n, words) {
             answer = [index % n + 1, parseInt(index / n + 1)];
             return false;
         }
-    })
-
+    });
     return answer;
 }
