@@ -6,7 +6,6 @@ function solution(elements) {
         let sum = element;
         sumSet.add(sum);
         for(let i = index + 1; i < sortedElements.length + index; i++){
-            // console.log(element, sortedElements[i % sortedElements.length])
             sum += sortedElements[i % sortedElements.length];
             sumSet.add(sum);
         }
