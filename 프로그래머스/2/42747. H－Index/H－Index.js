@@ -1,14 +1,24 @@
 function solution(citations) {
     var answer = 0;
+    var indexPoint = 0;
     const sortedCitations = citations.sort((a, b) => a - b);
     sortedCitations.forEach((citation, index) => {
-        if(sortedCitations.length - index >= citation && index <= citation) answer = citation;
+        if(sortedCitations.length - index >= citation && index <= citation){
+            indexPoint = index + 1;
+            answer = citation;
+        }
     });
-    while(true){
-        if(sortedCitations.filter((citation) => citation >= answer + 1).length >= answer + 1)
-            answer += 1;
-        else
-            break;
+    if(answer === 0){
+        for(let i = 1; i < sortedCitations[0]; i++){
+            if(sortedCitations[0] - i >= 0 && sortedCitations.length >= i) answer = i;
+            else break;
+        }
+    }
+    else if(indexPoint && indexPoint < sortedCitations.length){
+        for(let i = sortedCitations[indexPoint - 1] + 1; i < sortedCitations[indexPoint]; i++){
+            if(sortedCitations[indexPoint] - i >= 0 && sortedCitations.length - indexPoint >= i) answer = i;
+            else break;
+        }
     }
     return answer;
 }
