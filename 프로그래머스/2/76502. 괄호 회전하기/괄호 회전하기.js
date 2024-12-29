@@ -1,6 +1,7 @@
 function solution(s) {
     var answer = 0;
     for(let i = 0; i < s.length; i++){
+        // 문자열을 slice를 통해 합치고 싶을 때는 +를 활용하자.
         const rotatedSentence = s.slice(i) + s.slice(0, i);
         answer += checkRightSentence(rotatedSentence);
     }
