@@ -1,0 +1,23 @@
+function solution(citations) {
+    var answer = 0;
+    const sortedCitations = citations.sort((a, b) => a - b);
+    sortedCitations.forEach((citation, index) => {
+        if(sortedCitations.length - index >= citation && index <= citation) answer = citation;
+    });
+    while(true){
+        if(sortedCitations.filter((citation) => citation >= answer + 1).length >= answer + 1)
+            answer += 1;
+        else
+            break;
+    }
+    return answer;
+}
+
+    // 생각해보니까 공식으로 할 수 있을 듯?
+    // sortedCitations.forEach((citation, index) => {
+    //     let imports = 0;
+    //     for(let i = 0; i < sortedCitations.length; i++){
+    //         if(citation <= sortedCitations[i]) imports += 1;
+    //     }
+    //     if(sortedCitations.length - imports <= imports && imports >= citation) answer = citation;
+    // });
