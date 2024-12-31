@@ -91,6 +91,10 @@ function solution(n, left, right) {
     var answer = [];
     for(let i = left; i <= right; i++){
         // const iPlus = i + 1;
+        // 이제부터는 pasreInt 대신 Math.floor를 사용하자.
+        // parseInt는 문자열을 숫자로 변환하는 과정 + 정수로 만드는 과정이 들어있어 성능 상 Math.floor 보다 부담이 더 많이 된다.
+        // 또한 parseInt 값은 정확하지 않을 수 있다. 음수에 관해서 -3.4이면 -3이 나올 수 있다. 예상 답은 -4
+        // 그리고 인덱스는 웬만해서는 놔두고 풀어보자, 괜히 인덱스를 건들다가 문제를 틀릴 수 있다.
         const y = Math.floor(i / n);
         let x = Math.floor(i % n);
         if(y >= x) answer.push(y + 1);
