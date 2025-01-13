@@ -37,18 +37,6 @@ function solution(operations) {
             });
         }
     });
-    // let maxVal = 0;
-    // let minVal = 0;
-    // while(maxHeap.heap.length > 0) {
-    //     maxVal = maxHeap.heapPop();
-    //     if(countMap.get(maxVal) > 0) break;
-    //     else maxVal = 0;
-    // }
-    // while(minHeap.heap.length > 0) {
-    //     minVal = minHeap.heapPop();
-    //     if(countMap.get(minVal) > 0) break;
-    //     else minVal = 0;
-    // }
     answer = [maxHeap.heapPop(), minHeap.heapPop()];
     return answer;
 }
