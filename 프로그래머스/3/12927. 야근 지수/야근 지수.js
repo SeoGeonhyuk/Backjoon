@@ -23,41 +23,64 @@
     // return answer;
 // }
 
-// function solution(n, works) {
-//     var answer = 0;
-//     const heap = [];
-    
-//     for(let i = 0; i < works.length; i++) {
-//         heap.push(works[i]);
-//         if(heap.length > 1) {
-//             let currentIndex = heap.length - 1;
-//         while(currentIndex > 0) {
-//             let parentIndex = Math.floor((currentIndex - 1) / 2);
-//             if(heap[parentIndex] < heap[currentIndex]) [heap[parentIndex], heap[currentIndex]] = [heap[currentIndex], heap[parentIndex]];
-//             currentIndex = parentIndex;
-//             }
-//         }
-//     }
-    
-//     while(n > 0) {
-//         const maxVal = heap.shift();
-//         n -= 1;
-//         if(maxVal > 0) heap.push(maxVal - 1);
-//         let currentIndex = heap.length - 1;
-//         if(heap.length > 1) {
-//             while(currentIndex > 0) {
-//             let parentIndex = Math.floor((currentIndex - 1) / 2);
-//             if(heap[parentIndex] < heap[currentIndex]) [heap[parentIndex], heap[currentIndex]] = [heap[currentIndex], heap[parentIndex]];
-//             currentIndex = parentIndex;
-//             }
-//         }
-        
-//     }
-//     answer = heap.reduce((acc, cur) => {
-//     return acc + BigInt(cur) ** 2n;
-//     }, 0n);
-//     return Number(answer);
-// }
+function solution(n, works) {
+  var answer = 0;
+  const heap = [];
+
+  for (let i = 0; i < works.length; i++) {
+    heap.push(works[i]);
+      let currentIndex = heap.length - 1;
+      while (currentIndex > 0) {
+        let parentIndex = Math.floor((currentIndex - 1) / 2);
+        if (heap[parentIndex] < heap[currentIndex])
+          [heap[parentIndex], heap[currentIndex]] = [
+            heap[currentIndex],
+            heap[parentIndex],
+          ];
+        currentIndex = parentIndex;
+      }
+  }
+
+  while (n > 0) {
+    const maxVal = heap[0] - 1;
+    if(heap.length === 1) heap.pop();
+    else heap[0] = heap.pop();
+    n -= 1;
+    let currentIndex = 0;
+    if (heap.length > 1) {
+      while (currentIndex < heap.length) {
+        let left = currentIndex * 2 + 1;
+        let right = currentIndex * 2 + 2;
+        let largest = currentIndex;
+        if (left < heap.length && heap[left] > heap[largest]) largest = left;
+        if (right < heap.length && heap[right] > heap[largest]) largest = right;
+        if (largest === currentIndex) break;
+        [heap[currentIndex], heap[largest]] = [
+          heap[largest],
+          heap[currentIndex],
+        ];
+        currentIndex = largest;
+      }
+    }
+    if (maxVal > 0) heap.push(maxVal);
+    currentIndex = heap.length - 1;
+    while (currentIndex > 0) {
+      let parentIndex = Math.floor((currentIndex - 1) / 2);
+      if (heap[parentIndex] < heap[currentIndex])
+        [heap[parentIndex], heap[currentIndex]] = [
+          heap[currentIndex],
+          heap[parentIndex],
+        ];
+      currentIndex = parentIndex;
+    }
+  }
+    console.log(heap);
+  answer = heap.reduce((acc, cur) => {
+    return acc + cur ** 2;
+  }, 0);
+  return answer || 0;
+}
+
 
 // 하나를 0이될때까지 감소시키는 것보다 전반적으로 하나씩 줄이는 것이 훨씬 더 이득이다.
 // 라고 생각했는데 예외 케이스를 발견했다.
@@ -89,77 +112,4 @@
 // 7 -> 3(4)
 // 8 -> 3(4 + 1)
 
-
-function solution(n, works) {
-    class MaxHeap {
-        constructor() {
-            this.heap = [];
-        }
-        
-        push(value) {
-            this.heap.push(value);
-            this.heapifyUp();
-        }
-        
-        pop() {
-            if (this.heap.length === 0) return null;
-            if (this.heap.length === 1) return this.heap.pop();
-            
-            const max = this.heap[0];
-            this.heap[0] = this.heap.pop();
-            this.heapifyDown();
-            
-            return max;
-        }
-        
-        heapifyUp() {
-            let currentIdx = this.heap.length - 1;
-            while (currentIdx > 0) {
-                const parentIdx = Math.floor((currentIdx - 1) / 2);
-                if (this.heap[parentIdx] >= this.heap[currentIdx]) break;
-                
-                [this.heap[parentIdx], this.heap[currentIdx]] = 
-                [this.heap[currentIdx], this.heap[parentIdx]];
-                currentIdx = parentIdx;
-            }
-        }
-        
-        heapifyDown() {
-            let currentIdx = 0;
-            
-            while (true) {
-                const leftIdx = currentIdx * 2 + 1;
-                const rightIdx = currentIdx * 2 + 2;
-                let maxIdx = currentIdx;
-                
-                if (leftIdx < this.heap.length && 
-                    this.heap[leftIdx] > this.heap[maxIdx]) {
-                    maxIdx = leftIdx;
-                }
-                
-                if (rightIdx < this.heap.length && 
-                    this.heap[rightIdx] > this.heap[maxIdx]) {
-                    maxIdx = rightIdx;
-                }
-                
-                if (maxIdx === currentIdx) break;
-                
-                [this.heap[currentIdx], this.heap[maxIdx]] = 
-                [this.heap[maxIdx], this.heap[currentIdx]];
-                currentIdx = maxIdx;
-            }
-        }
-    }
-    
-    const maxHeap = new MaxHeap();
-    works.forEach(work => maxHeap.push(work));
-    
-    while (n > 0 && maxHeap.heap[0] > 0) {
-        const maxWork = maxHeap.pop();
-        maxHeap.push(maxWork - 1);
-        n--;
-    }
-    
-    return maxHeap.heap.reduce((acc, cur) => acc + cur * cur, 0);
-}
 
