@@ -6,7 +6,6 @@ function solution(numbers) {
         while (stack.length > 0 && stack[stack.length - 1] <= numbers[i]) {
             stack.pop();
         }
-        
         answer.push(stack.length === 0 ? -1 : stack[stack.length - 1]);
         stack.push(numbers[i]);
     }
