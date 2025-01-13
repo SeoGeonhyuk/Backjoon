@@ -23,6 +23,8 @@
     // return answer;
 // }
 
+// 힙 자료구조에서 하나를 빼올 때는 무조건 위에서 정렬을 해야 한다.
+// 힙 자료구조에서 하나를 넣을 때는 무조건 아래에서 정렬을 해야 한다.
 function solution(n, works) {
   var answer = 0;
   const heap = [];
@@ -74,7 +76,6 @@ function solution(n, works) {
       currentIndex = parentIndex;
     }
   }
-    console.log(heap);
   answer = heap.reduce((acc, cur) => {
     return acc + cur ** 2;
   }, 0);
