@@ -1,49 +1,38 @@
 function solution(m, n, board) {
-   board = board.map(v => v.split(''));
-   let answer = 0;
-   
-   while(true) {
-       const willRemove = new Set();
-       
-       for(let i = 0; i < m-1; i++) {
-           for(let j = 0; j < n-1; j++) {
-               const current = board[i][j];
-               if(current === 0) continue;
-
-               
-               if(current === board[i][j+1] && 
-                  current === board[i+1][j] && 
-                  current === board[i+1][j+1]) {
-                   willRemove.add(`${i},${j}`);
-                   willRemove.add(`${i},${j+1}`);
-                   willRemove.add(`${i+1},${j}`);
-                   willRemove.add(`${i+1},${j+1}`);
-               }
-           }
-       }
-       
-       if(willRemove.size === 0) break;
-       
-       answer += willRemove.size;
-       willRemove.forEach(pos => {
-           const [i, j] = pos.split(',').map(Number);
-           board[i][j] = 0;
-       });
-       
-       for(let j = 0; j < n; j++) {
-           for(let i = m-1; i > 0; i--) {
-               if(board[i][j] === 0) {
-                   for(let k = i-1; k >= 0; k--) {
-                       if(board[k][j] !== 0) {
-                           board[i][j] = board[k][j];
-                           board[k][j] = 0;
-                           break;
-                       }
-                   }
-               }
-           }
-       }
-   }
-   
-   return answer;
+    var answer = 0;
+    let boards = board.map((b) => b.split(''));
+    while(true) {
+        const removeBlocks = new Set();
+        for(let i = 0; i < boards.length; i++){
+            for(let j = 0; j < boards[0].length; j++){
+                if(boards[i][j] && j + 1 < boards[0].length && i + 1 < boards.length && boards[i][j] === boards[i + 1][j] && boards[i][j] === boards[i][j + 1] && boards[i][j] === boards[i + 1][j + 1]) {
+                    removeBlocks.add(`${i},${j}`);
+                    removeBlocks.add(`${i + 1},${j}`);
+                    removeBlocks.add(`${i},${j + 1}`);
+                    removeBlocks.add(`${i + 1},${j + 1}`);
+                }
+            }
+        }
+        if(!removeBlocks.size) break;
+        else {
+            answer += removeBlocks.size;
+            const removeBlocksArr = [...removeBlocks.keys()];
+            removeBlocksArr.forEach((rB) => {
+                const [y, x] = rB.split(',').map(Number);
+                boards[y][x] = 0;
+            });
+            for(let i = 0; i < boards.length; i++){
+                for(let j = 0; j < boards[0].length; j++){
+                    if(!boards[i][j]) {
+                            let height = i;
+                            while(height > 0) {
+                                [boards[height][j], boards[height - 1][j]] = [boards[height - 1][j], boards[height][j]]
+                                height -= 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    return answer;
 }
