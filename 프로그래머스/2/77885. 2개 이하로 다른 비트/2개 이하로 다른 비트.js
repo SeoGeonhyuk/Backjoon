@@ -24,59 +24,22 @@
 //     return answer;
 // }
 
-// function solution(numbers) {
-//     var answer = [];
-//     numbers.forEach((number) => {
-//         const numberBinary = number.toString(2);
-//         let oneCount = 0;
-//         for(let i = numberBinary.length - 1; i >= 0; i--){
-//             if(numberBinary[i] === '0') break;
-//             else oneCount += 1;
-//         }
-//         if(oneCount === 0) oneCount = 1;
-//         answer.push(number + (2 ** (oneCount - 1)))
-//     });
-//     return answer;
-// }
-
-
-// 5
-// 6
-// 7
-// 8
-// 9
-// 10
-// 11
-// 12
-// 13
-// 14
-// 15
-// 16
-// 17
-// 18
-// 19
-// 20
-// 21
 function solution(numbers) {
-  var answer = [];
-  let c;
-  numbers.forEach(v => {
-    if (v < 2 || v % 2 === 0) {
-        answer.push(v+1);
-    } else {
-        let c = 2;
-        while(true) {
-            if ((v + 1) % (c * 2) === 0) {
-                c = c * 2;
-            } else {
-                break;
-            }
-        };
-        answer.push(v + (c / 2));
-    }
-  });
-  return answer;
+    var answer = [];
+    numbers.forEach((number) => {
+        const numberBinary = number.toString(2);
+        let oneCount = 0;
+        for(let i = numberBinary.length - 1; i >= 0; i--){
+            if(numberBinary[i] === '0') break;
+            else oneCount += 1;
+        }
+        if(oneCount === 0) oneCount = 1;
+        answer.push(number + (2 ** (oneCount - 1)))
+    });
+    return answer;
 }
+
+
 //오른쪽부터 0을 만날때까지의 1의 개수를 활용해서 추적할 수 있을 것이다.
 // '10'이라면 11
 // '01이라면 10(2)' + 1
