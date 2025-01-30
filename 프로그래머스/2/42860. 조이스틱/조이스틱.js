@@ -136,7 +136,8 @@ function solution(name) {
         // 현재 위치에서의 좌우 이동 최소값 계산
         // 1) i까지 정방향으로 갔다가 뒤로 돌아가기
         // 2) 뒤에서부터 역방향으로 갔다가 다시 돌아가기
-        const moves = i + name.length - next + Math.min(i, name.length - next);
+        // const moves = i + name.length - next + Math.min(i, name.length - next);
+        const moves = Math.min(2 * i + name.length - next, i + (name.length - next) * 2)
         minHorizontalMoves = Math.min(minHorizontalMoves, moves);
     }
     
