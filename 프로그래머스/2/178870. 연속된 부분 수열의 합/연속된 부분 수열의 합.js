@@ -32,38 +32,6 @@
 //     else return;
 // }
 
-function solution(sequence, k) {
-    let left = 0, right = 0;
-    let sum = sequence[0];
-    let minLength = Infinity;
-    let answer = [-1, -1];
-
-    while (right < sequence.length) {
-        if (sum === k) {
-            if (right - left < minLength) {
-                minLength = right - left;
-                answer = [left, right];
-            }
-            sum -= sequence[left];
-            left++;
-        } 
-        else if (sum < k) {
-            right++;
-            if (right < sequence.length) {
-                sum += sequence[right];
-            }
-        } 
-        else { // sum > k
-            sum -= sequence[left];
-            left++;
-        }
-    }
-
-    return answer;
-}
-
-
-// let partSequenceLength = Number.POSITIVE_INFINITY;
 // function solution(sequence, k) {
 //     var answer = [sequence.length - 1, 0]
 //     const indexMap = new Map();
@@ -138,3 +106,29 @@ function solution(sequence, k) {
 // 오른쪽만 차감을 했을 경우
 // 왼쪽, 오른쪽 다 차감을 했을 경우
 // 일단 모든 시퀀스를 더했을 때를 구하고 재귀법으로 구하면된다.
+
+
+function solution(sequence, k) {
+    var answer = [];
+    let minLength = Number.POSITIVE_INFINITY;
+    let startIndex = 0;
+    let lastIndex = 0;
+    let sum = sequence[0];
+    let firstIndex = 0;
+    while(startIndex < sequence.length) {
+        if(sum === k && minLength > lastIndex - startIndex){
+            answer = [startIndex, lastIndex];
+            minLength = lastIndex - startIndex;
+        }
+        if(sum >= k){
+            sum -= sequence[startIndex];
+            startIndex += 1;
+        }
+        else if(sum < k && lastIndex < sequence.length){
+            lastIndex += 1;
+            sum += sequence[lastIndex];
+        }
+        else break;
+    }
+    return answer;
+}
