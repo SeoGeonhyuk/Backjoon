@@ -1,6 +1,6 @@
 function solution(weights) {
     var answer = 0;
-    const sortedWeights = weights.sort((a, b) => a - b);
+    const sortedWeights = weights;
     const weightCountMap = new Map();
     const multiplyArray = [2, 3, 4];
     const weightMap = new Map();
